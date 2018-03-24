@@ -11,7 +11,7 @@ RUN apk add musl-dev=1.1.18-r3
 RUN apk add gcc=6.4.0-r5
 
 # Set up source for compilation
-RUN cd /opt && git clone https://github.com/go-spatial/tegola
+RUN mkdir /opt && cd /opt && git clone https://github.com/go-spatial/tegola
 RUN mv /opt/tegola /opt/tegola_src
 RUN rm -rf /opt/tegola_src/src
 RUN mkdir -p /opt/tegola_src/src/github.com/go-spatial
