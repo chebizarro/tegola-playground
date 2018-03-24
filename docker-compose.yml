@@ -1,4 +1,4 @@
-version: '3'
+version: '2'
 services:
     postgis:
         image: mdillon/postgis:9.6
