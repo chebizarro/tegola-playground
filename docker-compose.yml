@@ -10,3 +10,7 @@ services:
             - "5432:5432"
         volumes:
             - ${PATH_PREFIX}/db/data:/var/lib/postgresql/data
+
+    tegola:
+        build:
+            context: .
