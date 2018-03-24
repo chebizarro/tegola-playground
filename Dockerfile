@@ -1,0 +1,30 @@
+# AUTHOR: Chris Daley
+# DESCRIPTION: Playground for the Tegola Vector Tile Server 
+# BUILD: docker build --rm -t go-spatial/tegola .
+# SOURCE: https://github.com/chebizaro/tegola-playground
+
+# --- Build the binary
+FROM golang:1.9.2-alpine3.7 AS build
+RUN apk update
+RUN apk add git
+RUN apk add musl-dev=1.1.18-r2
+RUN apk add gcc=6.4.0-r5
+
+# Set up source for compilation
+RUN cd /opt && git clone https://github.com/go-spatial/tegola
+RUN mv /opt/tegola /opt/tegola_src
+RUN rm -rf /opt/tegola_src/src
+RUN mkdir -p /opt/tegola_src/src/github.com/go-spatial
+RUN ln -s /opt/tegola_src /opt/tegola_src/src/github.com/go-spatial/tegola
+
+# Build binary
+WORKDIR /opt/tegola_src/cmd/tegola
+ENV GOPATH=/opt/tegola_src
+RUN go build -v -gcflags "-N -l" -o /opt/tegola
+RUN chmod a+x /opt/tegola
+
+# --- Create minimal deployment image, just alpine & the binary
+FROM alpine:3.7
+LABEL io.gospatial.version="0.6.0_beta"
+COPY --from=build /opt/tegola /opt/
+CMD ["/opt/tegola", "--config", "/opt/tegola_config/config.toml", "serve"]
