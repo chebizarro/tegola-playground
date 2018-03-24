@@ -7,7 +7,7 @@
 FROM golang:1.9.2-alpine3.7 AS build
 RUN apk update
 RUN apk add git
-RUN apk add musl-dev=1.1.18-r2
+RUN apk add musl-dev=1.1.18-r3
 RUN apk add gcc=6.4.0-r5
 
 # Set up source for compilation
