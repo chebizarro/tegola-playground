@@ -3,7 +3,7 @@ services:
     postgis:
         build:
             context: .
-            dockerfile: Dockerfile.data
+            dockerfile: Dockerfile.postgis
         environment:
             - POSTGRES_USER=${PG_USER}
             - POSTGRES_PASSWORD=${PG_PASS}
@@ -14,6 +14,7 @@ services:
     tegola:
         build:
             context: .
+            dockerfile: Dockerfile.tegola
         ports:
             - "8080:8080"
         depends_on:

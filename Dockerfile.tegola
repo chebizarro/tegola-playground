@@ -1,8 +1,4 @@
-# AUTHOR: Chris Daley
-# DESCRIPTION: Playground for the Tegola Vector Tile Server 
-# BUILD: docker build --rm -t go-spatial/tegola .
-# SOURCE: https://github.com/chebizaro/tegola-playground
-
+# Based on the Dockerfile in the Tegola source tree
 # --- Build the binary
 FROM golang:1.9.2-alpine3.7 AS build
 RUN apk update
