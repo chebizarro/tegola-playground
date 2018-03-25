@@ -1,5 +1,6 @@
 # --- Create minimal image to download the data
 FROM alpine:3.7 AS data
+RUN apk update
 RUN apk add wget
 RUN wget https://s3-us-west-2.amazonaws.com/tegola/bonn_osm.sql.tgz
 RUN tar xzf bonn_osm.sql.tgz
