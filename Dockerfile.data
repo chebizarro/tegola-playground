@@ -8,7 +8,7 @@ RUN tar xzf bonn_osm.sql.tgz
 # --- Create the sample data
 FROM mdillon/postgis:9.6
 COPY --from=data bonn_osm.sql /tmp/bonn_osm.sql
-RUN su $POSTGRES_USER && postgres
+RUN su tegola && postgres
 RUN createdb bonn
 RUN psql bonn < /tmp/bonn_osm.sql
 RUN psql -c "CREATE USER tegola;"
