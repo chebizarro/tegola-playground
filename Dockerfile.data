@@ -2,12 +2,12 @@
 FROM alpine:3.7 AS data
 RUN apk update
 RUN apk add wget
-RUN wget -O /tmp/bonn_osm.sql.tgz https://s3-us-west-2.amazonaws.com/tegola/bonn_osm.sql.tgz
-RUN tar xzf /tmp/bonn_osm.sql.tgz
+RUN wget https://s3-us-west-2.amazonaws.com/tegola/bonn_osm.sql.tgz
+RUN tar xzf bonn_osm.sql.tgz
 
 # --- Create the sample data
 FROM mdillon/postgis:9.6
-COPY --from=data /tmp/bonn_osm.sql /tmp/bonn_osm.sql
+COPY --from=data bonn_osm.sql /tmp/bonn_osm.sql
 RUN createdb bonn
 RUN psql bonn < /tmp/bonn_osm.sql
 RUN psql -c "CREATE USER tegola;"
