@@ -1,6 +1,7 @@
 # --- Create the sample data
 FROM mdillon/postgis:9.6
 
+RUN apt-get install curl
 RUN curl -o /tmp/bonn_osm.sql.tgz https://s3-us-west-2.amazonaws.com/tegola/bonn_osm.sql.tgz
 RUN tar xzf /tmp/bonn_osm.sql.tgz
 RUN createdb bonn
