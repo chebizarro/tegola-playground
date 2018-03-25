@@ -1,0 +1,9 @@
+# --- Create the sample data
+FROM mdillon/postgis:9.6
+
+RUN curl -o /tmp/bonn_osm.sql.tgz https://s3-us-west-2.amazonaws.com/tegola/bonn_osm.sql.tgz
+RUN tar xzf /tmp/bonn_osm.sql.tgz
+RUN createdb bonn
+RUN psql bonn < /tmp/bonn_osm.sql
+RUN psql -c "CREATE USER tegola;"
+RUN psql -d bonn -c "GRANT SELECT ON ALL TABLES IN SCHEMA public TO tegola;"

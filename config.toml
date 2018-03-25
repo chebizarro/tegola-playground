@@ -1,0 +1,51 @@
+[webserver]
+port = ":8080"
+CORSAllowedOrigin = "*"
+
+# register data providers
+[[providers]]
+name = "bonn"         # provider name is referenced from map layers (required)
+type = "postgis"      # the type of data provider. currently only supports postgis (required)
+host = "postgis"      # postgis database host (required)
+port = 5432           # postgis database port (required)
+database = "bonn"     # postgis database name (required)
+user = "tegola"       # postgis database user (required)
+password = ""         # postgis database password (required)
+srid = 3857           # The default srid for this provider. Defaults to WebMercator (3857) (optional)
+max_connections = 50  # The max connections to maintain in the connection pool. Default is 100. (optional)
+
+  [[providers.layers]]
+  name = "road"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM all_roads_3857 WHERE wkb_geometry && !BBOX!"
+
+  [[providers.layers]]
+  name = "main_roads"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM main_roads_3857 WHERE wkb_geometry && !BBOX!"
+
+  [[providers.layers]]
+  name = "lakes"
+  geometry_fieldname = "wkb_geometry"
+  id_fieldname = "ogc_fid"
+  sql = "SELECT ST_AsBinary(wkb_geometry) AS wkb_geometry, name, ogc_fid FROM lakes_3857 WHERE wkb_geometry && !BBOX!"
+
+[[maps]]
+name = "zoning"
+
+  [[maps.layers]]
+  provider_layer = "bonn.road"
+  min_zoom = 12
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "bonn.main_roads"
+  min_zoom = 5
+  max_zoom = 20
+
+  [[maps.layers]]
+  provider_layer = "bonn.lakes"
+  min_zoom = 5
+  max_zoom = 20

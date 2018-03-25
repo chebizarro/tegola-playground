@@ -1,15 +1,15 @@
 version: '2'
 services:
     postgis:
-        image: mdillon/postgis:9.6
+        build:
+            context: .
+            dockerfile: Dockerfile.data
         environment:
             - POSTGRES_USER=${PG_USER}
             - POSTGRES_PASSWORD=${PG_PASS}
-            - POSTGRES_DB=geopostgis
+            - POSTGRES_DB=bonn
         ports:
             - "5432:5432"
-        volumes:
-            - ${PATH_PREFIX}/db/data:/var/lib/postgresql/data
 
     tegola:
         build:
