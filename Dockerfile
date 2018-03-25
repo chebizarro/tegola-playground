@@ -29,4 +29,5 @@ LABEL io.gospatial.version="0.6.0_beta"
 COPY --from=build /opt/tegola /opt/
 RUN mkdir -p /opt/tegola_config/
 COPY config.toml /opt/tegola_config/
+EXPOSE 8080
 CMD ["/opt/tegola", "--config", "/opt/tegola_config/config.toml", "serve"]
