@@ -1,6 +1,6 @@
 # Tegola Playground
 
-This repo contains a simple Docker Composer configuration for orchestrating a basic installation of [Tegola](https://github.com/go-spatial/tegola) with PostGIS loaded with the Bonn sample dataset.
+This repo contains a simple Docker Compose configuration for orchestrating a basic installation of [Tegola](https://github.com/go-spatial/tegola) with PostGIS loaded with the Bonn sample dataset.
 
 ## Usage
 
